@@ -1,908 +1,1033 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>스마트 벤딩머신 경쟁업체 비교 분석</title>
-    <link rel="icon" type="image/svg+xml" href="lab2market-logo.svg">
-    <link rel="alternate icon" href="lab2market-logo.svg">
-    <link rel="mask-icon" href="lab2market-logo.svg" color="#000000">
+    <link rel="icon" type="image/svg+xml" href="lab2market-logo.svg" />
+    <link rel="alternate icon" href="lab2market-logo.svg" />
+    <link rel="mask-icon" href="lab2market-logo.svg" color="#000000" />
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont,
+          "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+        background: #fafafa;
+        padding: 40px 20px;
+        color: #1a1a1a;
+        line-height: 1.5;
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        border: 1px solid #e5e5e5;
+      }
+
+      .header {
+        background: #ffffff;
+        border-bottom: 2px solid #f0f0f0;
+        padding: 40px 30px;
+        text-align: center;
+      }
+
+      .header h1 {
+        font-size: 2.25rem;
+        margin-bottom: 12px;
+        font-weight: 600;
+        color: #1a1a1a;
+        letter-spacing: -0.025em;
+      }
+
+      .header p {
+        font-size: 1rem;
+        color: #6b7280;
+        font-weight: 400;
+      }
+
+      .comparison-table {
+        overflow-x: auto;
+        padding: 0;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+        background: white;
+      }
+
+      th {
+        background: #f8f9fa;
+        color: #374151;
+        padding: 16px 12px;
+        text-align: center;
+        font-weight: 600;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        border-bottom: 1px solid #e5e5e5;
+        font-size: 14px;
+      }
+
+      .category-header {
+        background: #f1f5f9;
+        font-weight: 600;
+        text-align: left;
+        padding: 14px 16px;
+        color: #334155;
+        border-bottom: 1px solid #e2e8f0;
+      }
+
+      td {
+        padding: 14px 12px;
+        border-bottom: 1px solid #f0f0f0;
+        text-align: center;
+        vertical-align: middle;
+        font-size: 12px;
+        line-height: 1.4;
+      }
+
+      tr:hover td {
+        background-color: #fafbfc;
+      }
+
+      .spec-label {
+        background: #fafbfc;
+        font-weight: 500;
+        text-align: left;
+        color: #374151;
+        border-right: 1px solid #e5e5e5;
+        padding-left: 16px;
+      }
+
+      .company-header {
+        background: #374151;
+        color: white;
+        font-weight: 600;
+        font-size: 13px;
+      }
+
+      .highlight-good {
+        background: #f0f9f0;
+        color: #166534;
+        font-weight: 500;
+        border: 1px solid #d4edda;
+        border-radius: 4px;
+        padding: 6px 8px;
+      }
+
+      .highlight-average {
+        background: #fffbf0;
+        color: #b45309;
+        font-weight: 500;
+        border: 1px solid #fde68a;
+        border-radius: 4px;
+        padding: 6px 8px;
+      }
+
+      .highlight-limited {
+        background: #fef2f2;
+        color: #dc2626;
+        font-weight: 500;
+        border: 1px solid #fecaca;
+        border-radius: 4px;
+        padding: 6px 8px;
+      }
+
+      .summary-section {
+        background: #fafbfc;
+        padding: 32px;
+        margin: 32px;
+        border-radius: 8px;
+        border: 1px solid #e5e5e5;
+      }
+
+      .summary-section h3 {
+        color: #1a1a1a;
+        margin-bottom: 16px;
+        font-size: 1.375rem;
+        font-weight: 600;
+      }
+
+      .competitive-advantage {
+        background: #ffffff;
+        border: 1px solid #e5e5e5;
+        padding: 32px;
+        margin: 32px;
+        border-radius: 8px;
+      }
+
+      .competitive-advantage h3 {
+        margin-bottom: 20px;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #1a1a1a;
+      }
+
+      .advantage-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .advantage-list li {
+        padding: 10px 0;
+        border-bottom: 1px solid #f0f0f0;
+        color: #374151;
+        font-size: 14px;
+      }
+
+      .advantage-list li:last-child {
+        border-bottom: none;
+      }
+
+      .advantage-list li:before {
+        content: "✓";
+        color: #059669;
+        font-weight: 600;
+        margin-right: 12px;
+      }
+
+      .gallery-section {
+        background: #ffffff;
+        border: 1px solid #e5e5e5;
+        padding: 32px;
+        margin: 32px;
+        border-radius: 8px;
+      }
+
+      .gallery-section h3 {
+        margin-bottom: 24px;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #1a1a1a;
+        text-align: center;
+      }
+
+      .company-gallery {
+        margin-bottom: 40px;
+        border-bottom: 1px solid #f0f0f0;
+        padding-bottom: 30px;
+      }
+
+      .company-gallery:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+
+      .company-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 16px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid #f0f0f0;
+      }
+
+      .image-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 16px;
+        margin-top: 16px;
+      }
+
+      .image-item {
+        background: #fafbfc;
+        border: 1px solid #e5e5e5;
+        border-radius: 6px;
+        padding: 12px;
+        text-align: center;
+      }
+
+      .image-item img {
+        width: 100%;
+        height: auto;
+        max-height: 200px;
+        object-fit: contain;
+        border-radius: 4px;
+        border: 1px solid #e5e5e5;
+        background: #f8f9fa;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+      }
+
+      .image-item img:hover {
+        transform: scale(1.05);
+      }
+
+      .image-item img[src=""] {
+        display: none;
+      }
+
+      .image-error {
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        color: #dc2626;
+        padding: 20px;
+        text-align: center;
+        border-radius: 4px;
+        font-size: 12px;
+      }
+
+      .image-fallback {
+        background: #f0f9ff;
+        border: 2px dashed #3b82f6;
+        padding: 30px 20px;
+        text-align: center;
+        border-radius: 4px;
+        color: #1e40af;
+        font-size: 12px;
+      }
+
+      .image-caption {
+        font-size: 11px;
+        color: #6b7280;
+        margin-top: 8px;
+        font-weight: 500;
+      }
+
+      .lab-to-market-placeholder {
+        background: #f8f9fa;
+        border: 2px dashed #d1d5db;
+        border-radius: 6px;
+        padding: 40px 20px;
+        text-align: center;
+        color: #6b7280;
+        font-style: italic;
+      }
+
+      @media (max-width: 768px) {
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
-            background: #fafafa;
-            padding: 40px 20px;
-            color: #1a1a1a;
-            line-height: 1.5;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            overflow: hidden;
-            border: 1px solid #e5e5e5;
-        }
-
-        .header {
-            background: #ffffff;
-            border-bottom: 2px solid #f0f0f0;
-            padding: 40px 30px;
-            text-align: center;
+          padding: 20px 10px;
         }
 
         .header h1 {
-            font-size: 2.25rem;
-            margin-bottom: 12px;
-            font-weight: 600;
-            color: #1a1a1a;
-            letter-spacing: -0.025em;
-        }
-
-        .header p {
-            font-size: 1rem;
-            color: #6b7280;
-            font-weight: 400;
-        }
-
-        .comparison-table {
-            overflow-x: auto;
-            padding: 0;
+          font-size: 1.875rem;
         }
 
         table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-            background: white;
+          font-size: 11px;
         }
 
-        th {
-            background: #f8f9fa;
-            color: #374151;
-            padding: 16px 12px;
-            text-align: center;
-            font-weight: 600;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            border-bottom: 1px solid #e5e5e5;
-            font-size: 14px;
-        }
-
-        .category-header {
-            background: #f1f5f9;
-            font-weight: 600;
-            text-align: left;
-            padding: 14px 16px;
-            color: #334155;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
+        th,
         td {
-            padding: 14px 12px;
-            border-bottom: 1px solid #f0f0f0;
-            text-align: center;
-            vertical-align: middle;
-            font-size: 12px;
-            line-height: 1.4;
+          padding: 10px 6px;
         }
 
-        tr:hover td {
-            background-color: #fafbfc;
-        }
-
-        .spec-label {
-            background: #fafbfc;
-            font-weight: 500;
-            text-align: left;
-            color: #374151;
-            border-right: 1px solid #e5e5e5;
-            padding-left: 16px;
-        }
-
-        .company-header {
-            background: #374151;
-            color: white;
-            font-weight: 600;
-            font-size: 13px;
-        }
-
-        .highlight-good {
-            background: #f0f9f0;
-            color: #166534;
-            font-weight: 500;
-            border: 1px solid #d4edda;
-            border-radius: 4px;
-            padding: 6px 8px;
-        }
-
-        .highlight-average {
-            background: #fffbf0;
-            color: #b45309;
-            font-weight: 500;
-            border: 1px solid #fde68a;
-            border-radius: 4px;
-            padding: 6px 8px;
-        }
-
-        .highlight-limited {
-            background: #fef2f2;
-            color: #dc2626;
-            font-weight: 500;
-            border: 1px solid #fecaca;
-            border-radius: 4px;
-            padding: 6px 8px;
-        }
-
-        .summary-section {
-            background: #fafbfc;
-            padding: 32px;
-            margin: 32px;
-            border-radius: 8px;
-            border: 1px solid #e5e5e5;
-        }
-
-        .summary-section h3 {
-            color: #1a1a1a;
-            margin-bottom: 16px;
-            font-size: 1.375rem;
-            font-weight: 600;
-        }
-
-        .competitive-advantage {
-            background: #ffffff;
-            border: 1px solid #e5e5e5;
-            padding: 32px;
-            margin: 32px;
-            border-radius: 8px;
-        }
-
-        .competitive-advantage h3 {
-            margin-bottom: 20px;
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #1a1a1a;
-        }
-
-        .advantage-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .advantage-list li {
-            padding: 10px 0;
-            border-bottom: 1px solid #f0f0f0;
-            color: #374151;
-            font-size: 14px;
-        }
-
-        .advantage-list li:last-child {
-            border-bottom: none;
-        }
-
-        .advantage-list li:before {
-            content: "✓";
-            color: #059669;
-            font-weight: 600;
-            margin-right: 12px;
-        }
-
+        .summary-section,
+        .competitive-advantage,
         .gallery-section {
-            background: #ffffff;
-            border: 1px solid #e5e5e5;
-            padding: 32px;
-            margin: 32px;
-            border-radius: 8px;
-        }
-
-        .gallery-section h3 {
-            margin-bottom: 24px;
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #1a1a1a;
-            text-align: center;
-        }
-
-        .company-gallery {
-            margin-bottom: 40px;
-            border-bottom: 1px solid #f0f0f0;
-            padding-bottom: 30px;
-        }
-
-        .company-gallery:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .company-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #374151;
-            margin-bottom: 16px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid #f0f0f0;
+          margin: 20px 16px;
+          padding: 24px;
         }
 
         .image-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 16px;
-            margin-top: 16px;
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+      }
+
+      /* 이미지 모달 스타일 */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.95);
+        justify-content: center;
+        align-items: center;
+      }
+
+      .modal.show {
+        display: flex;
+      }
+
+      .modal-content {
+        max-width: 95vw;
+        max-height: 95vh;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        border-radius: 8px;
+        opacity: 0;
+        transform: scale(0.9);
+        transition: opacity 0.2s ease, transform 0.2s ease;
+      }
+
+      .modal-content.show {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      .close {
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        color: #f1f1f1;
+        font-size: 40px;
+        font-weight: bold;
+        transition: 0.3s;
+        cursor: pointer;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: #bbb;
+        text-decoration: none;
+      }
+
+      .modal-caption {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        color: #ccc;
+        padding: 10px 20px;
+        background-color: rgba(0, 0, 0, 0.7);
+        border-radius: 4px;
+        max-width: 80%;
+      }
+
+      /* Print styles */
+      @media print {
+        body {
+          background: white;
+          padding: 0;
         }
 
-        .image-item {
-            background: #fafbfc;
-            border: 1px solid #e5e5e5;
-            border-radius: 6px;
-            padding: 12px;
-            text-align: center;
+        .container {
+          box-shadow: none;
+          border: none;
         }
 
-        .image-item img {
-            width: 100%;
-            height: auto;
-            max-height: 200px;
-            object-fit: contain;
-            border-radius: 4px;
-            border: 1px solid #e5e5e5;
-            background: #f8f9fa;
-            cursor: pointer;
-            transition: transform 0.2s ease;
+        .header {
+          border-bottom: 2px solid #000;
         }
 
-        .image-item img:hover {
-            transform: scale(1.05);
+        th {
+          background: #f8f9fa !important;
+          -webkit-print-color-adjust: exact;
         }
 
-        .image-item img[src=""] {
-            display: none;
+        .category-header {
+          background: #f1f5f9 !important;
+          -webkit-print-color-adjust: exact;
         }
 
-        .image-error {
-            background: #fef2f2;
-            border: 1px solid #fecaca;
-            color: #dc2626;
-            padding: 20px;
-            text-align: center;
-            border-radius: 4px;
-            font-size: 12px;
-        }
-
-        .image-fallback {
-            background: #f0f9ff;
-            border: 2px dashed #3b82f6;
-            padding: 30px 20px;
-            text-align: center;
-            border-radius: 4px;
-            color: #1e40af;
-            font-size: 12px;
-        }
-
-        .image-caption {
-            font-size: 11px;
-            color: #6b7280;
-            margin-top: 8px;
-            font-weight: 500;
-        }
-
-        .lab-to-market-placeholder {
-            background: #f8f9fa;
-            border: 2px dashed #d1d5db;
-            border-radius: 6px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6b7280;
-            font-style: italic;
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 20px 10px;
-            }
-            
-            .header h1 {
-                font-size: 1.875rem;
-            }
-            
-            table {
-                font-size: 11px;
-            }
-            
-            th, td {
-                padding: 10px 6px;
-            }
-            
-            .summary-section,
-            .competitive-advantage,
-            .gallery-section {
-                margin: 20px 16px;
-                padding: 24px;
-            }
-            
-            .image-grid {
-                grid-template-columns: 1fr;
-                gap: 12px;
-            }
-        }
-
-        /* 이미지 모달 스타일 */
         .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: rgba(0,0,0,0.95);
-            justify-content: center;
-            align-items: center;
+          display: none !important;
         }
-
-        .modal.show {
-            display: flex;
-        }
-
-        .modal-content {
-            max-width: 95vw;
-            max-height: 95vh;
-            width: auto;
-            height: auto;
-            object-fit: contain;
-            border-radius: 8px;
-            opacity: 0;
-            transform: scale(0.9);
-            transition: opacity 0.2s ease, transform 0.2s ease;
-        }
-
-        .modal-content.show {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .close {
-            position: absolute;
-            top: 15px;
-            right: 35px;
-            color: #f1f1f1;
-            font-size: 40px;
-            font-weight: bold;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: #bbb;
-            text-decoration: none;
-        }
-
-        .modal-caption {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            color: #ccc;
-            padding: 10px 20px;
-            background-color: rgba(0,0,0,0.7);
-            border-radius: 4px;
-            max-width: 80%;
-        }
-
-        /* Print styles */
-        @media print {
-            body {
-                background: white;
-                padding: 0;
-            }
-            
-            .container {
-                box-shadow: none;
-                border: none;
-            }
-            
-            .header {
-                border-bottom: 2px solid #000;
-            }
-            
-            th {
-                background: #f8f9fa !important;
-                -webkit-print-color-adjust: exact;
-            }
-            
-            .category-header {
-                background: #f1f5f9 !important;
-                -webkit-print-color-adjust: exact;
-            }
-
-            .modal {
-                display: none !important;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <div class="header">
-            <h1>스마트 벤딩머신 경쟁업체 비교 분석</h1>
-            <p>2025년 시장 현황 및 기술 비교 분석 보고서</p>
+      <div class="header">
+        <h1>스마트 벤딩머신 경쟁업체 비교 분석</h1>
+        <p>2025년 시장 현황 및 기술 비교 분석 보고서</p>
+      </div>
+
+      <div class="comparison-table">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 15%">구분</th>
+              <th class="company-header" style="width: 17%">
+                LAB TO MARKET<br />(우리 목표)
+              </th>
+              <th class="company-header" style="width: 17%">
+                에스엔브이(SNV)<br />스마트 벤딩머신 복합형
+              </th>
+              <th class="company-header" style="width: 17%">
+                아이브이엔코리아<br />RVM 시리즈
+              </th>
+              <th class="company-header" style="width: 17%">
+                롯데기공<br />LVP-562BLD
+              </th>
+              <th class="company-header" style="width: 17%">
+                가우비즈<br />(SW 솔루션)
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 기본 사양 -->
+            <tr>
+              <td class="category-header" colspan="6">기본 사양 및 크기</td>
+            </tr>
+            <tr>
+              <td class="spec-label">외형 크기</td>
+              <td class="highlight-good">맞춤형 설계<br />유연한 크기 조정</td>
+              <td>중앙제어부 530×1830×852mm<br />판매서비스기 852×1830×853mm (2대 연동)<br />전체사이즈 2234×1830×853mm</td>
+              <td>
+                RVM1: 1600×1010×2000mm<br />RVM2: 2300×1010×2000mm<br />RVM3:
+                3400×1010×2000mm
+              </td>
+              <td>995×1830×795mm<br />(W×H×D)</td>
+              <td>기존 하드웨어 활용<br />(파트너 의존)</td>
+            </tr>
+            <tr>
+              <td class="spec-label">판매 슬롯</td>
+              <td class="highlight-good">100+ 셀<br />위치별 ID 관리</td>
+              <td>제품에 따라서 112가지 상품 판매 가능<br />전원부: 220V AC/60Hz, 620W</td>
+              <td>RVM 가변형 선반<br />자유로운 조립<br />넓은 적재공간</td>
+              <td>46개 상품<br />선택 버튼</td>
+              <td>하드웨어 의존적</td>
+            </tr>
+
+            <!-- 온도 관리 -->
+            <tr>
+              <td class="category-header" colspan="6">온도 관리 시스템</td>
+            </tr>
+            <tr>
+              <td class="spec-label">냉장 기능</td>
+              <td class="highlight-good">
+                1~10°C 정밀 제어<br />구간별 온도 관리
+              </td>
+              <td>냉장 기능 지원<br />(상세 온도 미공개)</td>
+              <td>냉장/냉동 지원<br />220V~2500W</td>
+              <td>냉장 미지원<br />(상온 보관)</td>
+              <td>하드웨어 의존적</td>
+            </tr>
+            <tr>
+              <td class="spec-label">온도 센서</td>
+              <td class="highlight-good">온도/습도/CO2<br />실시간 모니터링</td>
+              <td>기본 온도 센서</td>
+              <td>기본 온도 센서</td>
+              <td>온도 센서 없음</td>
+              <td>하드웨어 의존적</td>
+            </tr>
+
+            <!-- 입출고 자동화 -->
+            <tr>
+              <td class="category-header" colspan="6">입출고 자동화</td>
+            </tr>
+            <tr>
+              <td class="spec-label">입고 방식</td>
+              <td class="highlight-good">
+                앞면/뒤면 자동화<br />X-Y 로봇 시스템
+              </td>
+              <td>수동 입고</td>
+              <td>수동 입고</td>
+              <td>수동 입고</td>
+              <td>하드웨어 의존적</td>
+            </tr>
+            <tr>
+              <td class="spec-label">반품 기능</td>
+              <td class="highlight-good">회원제 반품<br />자동 처리</td>
+              <td>반품 기능 없음</td>
+              <td>반품 기능 없음</td>
+              <td>반품 기능 없음</td>
+              <td>소프트웨어적 지원</td>
+            </tr>
+
+            <!-- 인식 시스템 -->
+            <tr>
+              <td class="category-header" colspan="6">상품 인식 시스템</td>
+            </tr>
+            <tr>
+              <td class="spec-label">바코드/RFID</td>
+              <td class="highlight-good">
+                1D/2D 바코드 + RFID<br />입고시 자동 인식
+              </td>
+              <td>미지원</td>
+              <td>미지원</td>
+              <td>미지원</td>
+              <td>미지원</td>
+            </tr>
+            <tr>
+              <td class="spec-label">특수 센서</td>
+              <td class="highlight-good">
+                방사능, O2, CO2, 온습도, pH, etc. <br />신선도 모니터링
+              </td>
+              <td>기본 센서 (온도)</td>
+              <td>기본 센서 (온도)</td>
+              <td>기본 센서 (온도)</td>
+              <td>미지원</td>
+            </tr>
+
+            <!-- 사용자 인터페이스 -->
+            <tr>
+              <td class="category-header" colspan="6">사용자 인터페이스</td>
+            </tr>
+            <tr>
+              <td class="spec-label">디스플레이</td>
+              <td class="highlight-good">대형 터치스크린<br />영양정보 표시</td>
+              <td>32인치 DID LED, 32인치 터치(with glass)<br />PC셋팅(i3, memory:4GB, SSD:64GB, Windows10)<br />통신: 100Mbps, 무선</td>
+              <td>LCD 디스플레이<br />32인치 터치</td>
+              <td>터치스크린<br />상품 선택</td>
+              <td>웹 기반 UI<br />모바일 앱</td>
+            </tr>
+            <tr>
+              <td class="spec-label">정보 표시</td>
+              <td class="highlight-good">
+                칼로리, 영양성분<br />신선도, 가격변동
+              </td>
+              <td>기본 상품 정보<br />가격 표시</td>
+              <td>기본 상품 정보</td>
+              <td>상품명, 가격</td>
+              <td class="highlight-good">상세 상품 정보<br />재고 상태</td>
+            </tr>
+
+            <!-- 결제 시스템 -->
+            <tr>
+              <td class="category-header" colspan="6">결제 시스템</td>
+            </tr>
+            <tr>
+              <td class="spec-label">결제 방식</td>
+              <td class="highlight-good">
+                카드/모바일/RF카드<br />다양한 결제 수단
+              </td>
+              <td>카드/신용카드(IC카드), 삼성페이<br />지폐&코인(천원, 오천원, 만원, 100원, 500원)<br />바코드/QR코드 리더기, RF카드</td>
+              <td>카드 결제<br />코인 결제</td>
+              <td>카드 결제<br />모바일 결제</td>
+              <td class="highlight-good">다양한 결제 연동<br />온라인 결제</td>
+            </tr>
+
+            <!-- 관리 시스템 -->
+            <tr>
+              <td class="category-header" colspan="6">관리 및 분석 시스템</td>
+            </tr>
+            <tr>
+              <td class="spec-label">재고 관리</td>
+              <td class="highlight-good">
+                실시간 재고 추적<br />자동 발주 시스템
+              </td>
+              <td>기본 재고 관리</td>
+              <td>기본 재고 관리</td>
+              <td>수동 재고 관리</td>
+              <td class="highlight-good">
+                클라우드 재고 관리<br />실시간 모니터링
+              </td>
+            </tr>
+            <tr>
+              <td class="spec-label">판매 분석</td>
+              <td class="highlight-good">
+                메뉴 라이프사이클<br />고객 선호도 분석
+              </td>
+              <td>기본 판매 데이터</td>
+              <td>기본 판매 리포트</td>
+              <td>기본 판매 현황</td>
+              <td class="highlight-good">고급 분석 리포트<br />매출 분석</td>
+            </tr>
+            <tr>
+              <td class="spec-label">다이나믹 프라이싱</td>
+              <td class="highlight-good">
+                시간/신선도 기반<br />자동 가격 조정
+              </td>
+              <td>고정 가격</td>
+              <td>고정 가격</td>
+              <td>고정 가격</td>
+              <td class="highlight-average">소프트웨어적 지원<br />(제한적)</td>
+            </tr>
+
+            <!-- 비즈니스 모델 -->
+            <tr>
+              <td class="category-header" colspan="6">비즈니스 모델</td>
+            </tr>
+            <tr>
+              <td class="spec-label">판매 방식</td>
+              <td class="highlight-good">
+                리스/구매/서브스크립션<br />유연한 모델
+              </td>
+              <td>주로 구매<br />일부 리스</td>
+              <td>주로 구매</td>
+              <td>구매 위주</td>
+              <td class="highlight-good">
+                SaaS 서브스크립션<br />소프트웨어 라이선스
+              </td>
+            </tr>
+            <tr>
+              <td class="spec-label">유지보수</td>
+              <td class="highlight-good">원격 모니터링<br />예측 정비</td>
+              <td>현장 서비스<br />1년 무상 AS</td>
+              <td>현장 서비스</td>
+              <td>현장 서비스</td>
+              <td class="highlight-good">원격 모니터링<br />클라우드 관리</td>
+            </tr>
+
+            <!-- 가격대 -->
+            <tr>
+              <td class="category-header" colspan="6">예상 가격대</td>
+            </tr>
+            <tr>
+              <td class="spec-label">기본 모델</td>
+              <td class="highlight-average">
+                2,000~3,000만원<br />(고급 기능 포함)
+              </td>
+              <td>1,500~2,000만원</td>
+              <td>2,000~4,000만원<br />(모델별 차이)</td>
+              <td>800~1,200만원</td>
+              <td>연 300~500만원<br />(소프트웨어 라이선스)</td>
+            </tr>
+
+            <!-- 특장점 -->
+            <tr>
+              <td class="category-header" colspan="6">주요 특장점</td>
+            </tr>
+            <tr>
+              <td class="spec-label">차별화 요소</td>
+              <td class="highlight-good">
+                • 냉장 기능<br />• 영양정보 표시<br />• 자동화 입출고<br />•
+                다이나믹 프라이싱<br />• 신선도 관리
+              </td>
+              <td>• 높은 호환성<br />• 안정적 운영<br />• 대기업 납품 실적</td>
+              <td>
+                • 다양한 크기 옵션<br />• 로봇 벤딩머신<br />• 모듈형 구성
+              </td>
+              <td>• 저렴한 가격<br />• 간단한 운영<br />• 롯데 브랜드</td>
+              <td>• 강력한 SW 기능<br />• 클라우드 기반<br />• 기존 HW 활용</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="gallery-section">
+        <h3>제품 이미지 갤러리</h3>
+
+        <!-- LAB TO MARKET -->
+        <div class="company-gallery">
+          <div class="company-title">LAB TO MARKET (목표 제품)</div>
+          <div class="lab-to-market-placeholder">
+            <p>개발 예정 - 스마트 냉장 쇼케이스</p>
+            <p>냉장 기능, 영양정보 표시, 자동화 입출고 시스템</p>
+          </div>
         </div>
 
-        <div class="comparison-table">
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 15%;">구분</th>
-                        <th class="company-header" style="width: 17%;">LAB TO MARKET<br/>(우리 목표)</th>
-                        <th class="company-header" style="width: 17%;">에스엔브이(SNV)<br/>일반형</th>
-                        <th class="company-header" style="width: 17%;">아이브이엔코리아<br/>RVM 시리즈</th>
-                        <th class="company-header" style="width: 17%;">롯데기공<br/>LVP-562BLD</th>
-                        <th class="company-header" style="width: 17%;">가우비즈<br/>(SW 솔루션)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- 기본 사양 -->
-                    <tr>
-                        <td class="category-header" colspan="6">기본 사양 및 크기</td>
-                    </tr>
-                    <tr>
-                        <td class="spec-label">외형 크기</td>
-                        <td class="highlight-good">맞춤형 설계<br/>유연한 크기 조정</td>
-                        <td>530×1830×852mm<br/>(W×H×D)</td>
-                        <td>RVM1: 1600×1010×2000mm<br/>RVM2: 2300×1010×2000mm<br/>RVM3: 3400×1010×2000mm</td>
-                        <td>995×1830×795mm<br/>(W×H×D)</td>
-                        <td>기존 하드웨어 활용<br/>(파트너 의존)</td>
-                    </tr>
-                    <tr>
-                        <td class="spec-label">판매 슬롯</td>
-                        <td class="highlight-good">100+ 셀<br/>위치별 ID 관리</td>
-                        <td>562개 상품<br/>판매 가능</td>
-                        <td>다양한 크기별<br/>슬롯 구성</td>
-                        <td>46개 상품<br/>선택 버튼</td>
-                        <td>하드웨어 의존적</td>
-                    </tr>
-
-                    <!-- 온도 관리 -->
-                    <tr>
-                        <td class="category-header" colspan="6">온도 관리 시스템</td>
-                    </tr>
-                    <tr>
-                        <td class="spec-label">냉장 기능</td>
-                        <td class="highlight-good">1~10°C 정밀 제어<br/>구간별 온도 관리</td>
-                        <td>냉장 기능 지원<br/>(상세 온도 미공개)</td>
-                        <td>냉장/냉동 지원<br/>220V~2500W</td>
-                        <td>냉장 미지원<br/>(상온 보관)</td>
-                        <td>하드웨어 의존적</td>
-                    </tr>
-                    <tr>
-                        <td class="spec-label">온도 센서</td>
-                        <td class="highlight-good">온도/습도/CO2<br/>실시간 모니터링</td>
-                        <td>기본 온도 센서</td>
-                        <td>기본 온도 센서</td>
-                        <td>온도 센서 없음</td>
-                        <td>하드웨어 의존적</td>
-                    </tr>
-
-                    <!-- 입출고 자동화 -->
-                    <tr>
-                        <td class="category-header" colspan="6">입출고 자동화</td>
-                    </tr>
-                    <tr>
-                        <td class="spec-label">입고 방식</td>
-                        <td class="highlight-good">앞면/뒤면 자동화<br/>X-Y 로봇 시스템</td>
-                        <td>수동 입고</td>
-                        <td>수동 입고</td>
-                        <td>수동 입고</td>
-                        <td>하드웨어 의존적</td>
-                    </tr>
-                    <tr>
-                        <td class="spec-label">반품 기능</td>
-                        <td class="highlight-good">회원제 반품<br/>자동 처리</td>
-                        <td>반품 기능 없음</td>
-                        <td>반품 기능 없음</td>
-                        <td>반품 기능 없음</td>
-                        <td>소프트웨어적 지원</td>
-                    </tr>
-
-                    <!-- 인식 시스템 -->
-                    <tr>
-                        <td class="category-header" colspan="6">상품 인식 시스템</td>
-                    </tr>
-                    <tr>
-                        <td class="spec-label">바코드/RFID</td>
-                        <td class="highlight-good">1D/2D 바코드 + RFID<br/>입고시 자동 인식</td>
-                        <td>기본적인 바코드<br/>스캐너 지원</td>
-                        <td>바코드 리더<br/>지원</td>
-                        <td>바코드 인식<br/>지원</td>
-                        <td>소프트웨어적 지원</td>
-                    </tr>
-                    <tr>
-                        <td class="spec-label">특수 센서</td>
-                        <td class="highlight-good">방사능 센서<br/>신선도 모니터링</td>
-                        <td>기본 센서만</td>
-                        <td>기본 센서만</td>
-                        <td>터치스크린</td>
-                        <td>하드웨어 의존적</td>
-                    </tr>
-
-                    <!-- 사용자 인터페이스 -->
-                    <tr>
-                        <td class="category-header" colspan="6">사용자 인터페이스</td>
-                    </tr>
-                    <tr>
-                        <td class="spec-label">디스플레이</td>
-                        <td class="highlight-good">대형 터치스크린<br/>영양정보 표시</td>
-                        <td>터치스크린<br/>기본 UI</td>
-                        <td>LCD 디스플레이<br/>32인치 터치</td>
-                        <td>터치스크린<br/>상품 선택</td>
-                        <td>웹 기반 UI<br/>모바일 앱</td>
-                    </tr>
-                    <tr>
-                        <td class="spec-label">정보 표시</td>
-                        <td class="highlight-good">칼로리, 영양성분<br/>신선도, 가격변동</td>
-                        <td>기본 상품 정보<br/>가격 표시</td>
-                        <td>기본 상품 정보</td>
-                        <td>상품명, 가격</td>
-                        <td class="highlight-good">상세 상품 정보<br/>재고 상태</td>
-                    </tr>
-
-                    <!-- 결제 시스템 -->
-                    <tr>
-                        <td class="category-header" colspan="6">결제 시스템</td>
-                    </tr>
-                    <tr>
-                        <td class="spec-label">결제 방식</td>
-                        <td class="highlight-good">카드/모바일/RF카드<br/>다양한 결제 수단</td>
-                        <td>신용카드<br/>RF카드 지원</td>
-                        <td>카드 결제<br/>코인 결제</td>
-                        <td>카드 결제<br/>모바일 결제</td>
-                        <td class="highlight-good">다양한 결제 연동<br/>온라인 결제</td>
-                    </tr>
-
-                    <!-- 관리 시스템 -->
-                    <tr>
-                        <td class="category-header" colspan="6">관리 및 분석 시스템</td>
-                    </tr>
-                    <tr>
-                        <td class="spec-label">재고 관리</td>
-                        <td class="highlight-good">실시간 재고 추적<br/>자동 발주 시스템</td>
-                        <td>기본 재고 관리</td>
-                        <td>기본 재고 관리</td>
-                        <td>수동 재고 관리</td>
-                        <td class="highlight-good">클라우드 재고 관리<br/>실시간 모니터링</td>
-                    </tr>
-                    <tr>
-                        <td class="spec-label">판매 분석</td>
-                        <td class="highlight-good">메뉴 라이프사이클<br/>고객 선호도 분석</td>
-                        <td>기본 판매 데이터</td>
-                        <td>기본 판매 리포트</td>
-                        <td>기본 판매 현황</td>
-                        <td class="highlight-good">고급 분석 리포트<br/>매출 분석</td>
-                    </tr>
-                    <tr>
-                        <td class="spec-label">다이나믹 프라이싱</td>
-                        <td class="highlight-good">시간/신선도 기반<br/>자동 가격 조정</td>
-                        <td>고정 가격</td>
-                        <td>고정 가격</td>
-                        <td>고정 가격</td>
-                        <td class="highlight-average">소프트웨어적 지원<br/>(제한적)</td>
-                    </tr>
-
-                    <!-- 비즈니스 모델 -->
-                    <tr>
-                        <td class="category-header" colspan="6">비즈니스 모델</td>
-                    </tr>
-                    <tr>
-                        <td class="spec-label">판매 방식</td>
-                        <td class="highlight-good">리스/구매/서브스크립션<br/>유연한 모델</td>
-                        <td>주로 구매<br/>일부 리스</td>
-                        <td>주로 구매</td>
-                        <td>구매 위주</td>
-                        <td class="highlight-good">SaaS 서브스크립션<br/>소프트웨어 라이선스</td>
-                    </tr>
-                    <tr>
-                        <td class="spec-label">유지보수</td>
-                        <td class="highlight-good">원격 모니터링<br/>예측 정비</td>
-                        <td>현장 서비스<br/>1년 무상 AS</td>
-                        <td>현장 서비스</td>
-                        <td>현장 서비스</td>
-                        <td class="highlight-good">원격 모니터링<br/>클라우드 관리</td>
-                    </tr>
-
-                    <!-- 가격대 -->
-                    <tr>
-                        <td class="category-header" colspan="6">예상 가격대</td>
-                    </tr>
-                    <tr>
-                        <td class="spec-label">기본 모델</td>
-                        <td class="highlight-average">2,000~3,000만원<br/>(고급 기능 포함)</td>
-                        <td>1,500~2,000만원</td>
-                        <td>2,000~4,000만원<br/>(모델별 차이)</td>
-                        <td>800~1,200만원</td>
-                        <td>연 300~500만원<br/>(소프트웨어 라이선스)</td>
-                    </tr>
-
-                    <!-- 특장점 -->
-                    <tr>
-                        <td class="category-header" colspan="6">주요 특장점</td>
-                    </tr>
-                    <tr>
-                        <td class="spec-label">차별화 요소</td>
-                        <td class="highlight-good">• 냉장 기능<br/>• 영양정보 표시<br/>• 자동화 입출고<br/>• 다이나믹 프라이싱<br/>• 신선도 관리</td>
-                        <td>• 높은 호환성<br/>• 안정적 운영<br/>• 대기업 납품 실적</td>
-                        <td>• 다양한 크기 옵션<br/>• 로봇 벤딩머신<br/>• 모듈형 구성</td>
-                        <td>• 저렴한 가격<br/>• 간단한 운영<br/>• 롯데 브랜드</td>
-                        <td>• 강력한 SW 기능<br/>• 클라우드 기반<br/>• 기존 HW 활용</td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- 에스엔브이 -->
+        <div class="company-gallery">
+          <div class="company-title">
+            에스엔브이 (SNV) - 스마트 벤딩머신 복합형
+          </div>
+          <div class="image-grid">
+            <div class="image-item">
+              <img
+                src="https://velog.velcdn.com/images/hwouu/post/ed46374b-ea91-4996-bb61-4c24adda7650/image.png"
+                alt="SNV 설치사례"
+                loading="lazy"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+              />
+              <div class="image-fallback" style="display: none">
+                <p><strong>SNV 설치사례</strong></p>
+                <p>
+                  이미지 링크:
+                  velog.velcdn.com/.../ed46374b-ea91-4996-bb61-4c24adda7650/image.png
+                </p>
+              </div>
+              <div class="image-caption">설치 사례</div>
+            </div>
+            <div class="image-item">
+              <img
+                src="https://velog.velcdn.com/images/hwouu/post/02a87c7d-0d16-4707-8993-9ec825356f6b/image.png"
+                alt="SNV 제품사진 및 스펙"
+                loading="lazy"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+              />
+              <div class="image-fallback" style="display: none">
+                <p><strong>SNV 제품사진 및 스펙표</strong></p>
+                <p>
+                  이미지 링크:
+                  velog.velcdn.com/.../02a87c7d-0d16-4707-8993-9ec825356f6b/image.png
+                </p>
+              </div>
+              <div class="image-caption">제품 사진 및 스펙표</div>
+            </div>
+          </div>
         </div>
 
-        <div class="gallery-section">
-            <h3>제품 이미지 갤러리</h3>
-            
-            <!-- LAB TO MARKET -->
-            <div class="company-gallery">
-                <div class="company-title">LAB TO MARKET (목표 제품)</div>
-                <div class="lab-to-market-placeholder">
-                    <p>개발 예정 - 스마트 냉장 쇼케이스</p>
-                    <p>냉장 기능, 영양정보 표시, 자동화 입출고 시스템</p>
-                </div>
+        <!-- 아이브이앤코리아 -->
+        <div class="company-gallery">
+          <div class="company-title">
+            아이브이앤코리아 - RVM 시리즈 (로봇 벤딩머신)
+          </div>
+          <div class="image-grid">
+            <div class="image-item">
+              <img
+                src="https://velog.velcdn.com/images/hwouu/post/19cc7f40-906b-432c-b479-0cff0eca1760/image.png"
+                alt="아이브이앤 설치사례"
+                loading="lazy"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+              />
+              <div class="image-fallback" style="display: none">
+                <p><strong>아이브이앤 설치사례</strong></p>
+                <p>
+                  이미지 링크:
+                  velog.velcdn.com/.../19cc7f40-906b-432c-b479-0cff0eca1760/image.png
+                </p>
+              </div>
+              <div class="image-caption">설치 사례</div>
             </div>
-
-            <!-- 에스엔브이 -->
-            <div class="company-gallery">
-                <div class="company-title">에스엔브이 (SNV) - 스마트 벤딩머신 일반형</div>
-                <div class="image-grid">
-                    <div class="image-item">
-                        <img src="https://velog.velcdn.com/images/hwouu/post/ed46374b-ea91-4996-bb61-4c24adda7650/image.png" 
-                             alt="SNV 설치사례" 
-                             loading="lazy"
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                        <div class="image-fallback" style="display:none;">
-                            <p><strong>SNV 설치사례</strong></p>
-                            <p>이미지 링크: velog.velcdn.com/.../ed46374b-ea91-4996-bb61-4c24adda7650/image.png</p>
-                        </div>
-                        <div class="image-caption">설치 사례</div>
-                    </div>
-                    <div class="image-item">
-                        <img src="https://velog.velcdn.com/images/hwouu/post/02a87c7d-0d16-4707-8993-9ec825356f6b/image.png" 
-                             alt="SNV 제품사진 및 스펙" 
-                             loading="lazy"
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                        <div class="image-fallback" style="display:none;">
-                            <p><strong>SNV 제품사진 및 스펙표</strong></p>
-                            <p>이미지 링크: velog.velcdn.com/.../02a87c7d-0d16-4707-8993-9ec825356f6b/image.png</p>
-                        </div>
-                        <div class="image-caption">제품 사진 및 스펙표</div>
-                    </div>
-                </div>
+            <div class="image-item">
+              <img
+                src="https://velog.velcdn.com/images/hwouu/post/f90c5177-1664-4aa0-a6c5-e42ceeaa2b53/image.png"
+                alt="아이브이앤 제품사진"
+                loading="lazy"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+              />
+              <div class="image-fallback" style="display: none">
+                <p><strong>RVM 시리즈 제품</strong></p>
+                <p>
+                  이미지 링크:
+                  velog.velcdn.com/.../f90c5177-1664-4aa0-a6c5-e42ceeaa2b53/image.png
+                </p>
+              </div>
+              <div class="image-caption">RVM 시리즈 제품</div>
             </div>
-
-            <!-- 아이브이앤코리아 -->
-            <div class="company-gallery">
-                <div class="company-title">아이브이앤코리아 - RVM 시리즈 (로봇 벤딩머신)</div>
-                <div class="image-grid">
-                    <div class="image-item">
-                        <img src="https://velog.velcdn.com/images/hwouu/post/19cc7f40-906b-432c-b479-0cff0eca1760/image.png" 
-                             alt="아이브이앤 설치사례" 
-                             loading="lazy"
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                        <div class="image-fallback" style="display:none;">
-                            <p><strong>아이브이앤 설치사례</strong></p>
-                            <p>이미지 링크: velog.velcdn.com/.../19cc7f40-906b-432c-b479-0cff0eca1760/image.png</p>
-                        </div>
-                        <div class="image-caption">설치 사례</div>
-                    </div>
-                    <div class="image-item">
-                        <img src="https://velog.velcdn.com/images/hwouu/post/f90c5177-1664-4aa0-a6c5-e42ceeaa2b53/image.png" 
-                             alt="아이브이앤 제품사진" 
-                             loading="lazy"
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                        <div class="image-fallback" style="display:none;">
-                            <p><strong>RVM 시리즈 제품</strong></p>
-                            <p>이미지 링크: velog.velcdn.com/.../f90c5177-1664-4aa0-a6c5-e42ceeaa2b53/image.png</p>
-                        </div>
-                        <div class="image-caption">RVM 시리즈 제품</div>
-                    </div>
-                    <div class="image-item">
-                        <img src="https://velog.velcdn.com/images/hwouu/post/841c234c-e3ad-4b4a-ba1a-358ead1c2fbd/image.png" 
-                             alt="아이브이앤 스펙표" 
-                             loading="lazy"
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                        <div class="image-fallback" style="display:none;">
-                            <p><strong>RVM 시리즈 스펙표</strong></p>
-                            <p>이미지 링크: velog.velcdn.com/.../841c234c-e3ad-4b4a-ba1a-358ead1c2fbd/image.png</p>
-                        </div>
-                        <div class="image-caption">RVM 시리즈 스펙표</div>
-                    </div>
-                </div>
+            <div class="image-item">
+              <img
+                src="https://velog.velcdn.com/images/hwouu/post/841c234c-e3ad-4b4a-ba1a-358ead1c2fbd/image.png"
+                alt="아이브이앤 스펙표"
+                loading="lazy"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+              />
+              <div class="image-fallback" style="display: none">
+                <p><strong>RVM 시리즈 스펙표</strong></p>
+                <p>
+                  이미지 링크:
+                  velog.velcdn.com/.../841c234c-e3ad-4b4a-ba1a-358ead1c2fbd/image.png
+                </p>
+              </div>
+              <div class="image-caption">RVM 시리즈 스펙표</div>
             </div>
-
-            <!-- 롯데기공 -->
-            <div class="company-gallery">
-                <div class="company-title">롯데기공 - LVP-562BLD / Kiosk 멀티 자동판매기</div>
-                <div class="image-grid">
-                    <div class="image-item">
-                        <img src="https://velog.velcdn.com/images/hwouu/post/568643f6-f27c-4fb8-ac54-4a87ea0bbf21/image.png" 
-                             alt="롯데기공 LVP-562BLD" 
-                             loading="lazy"
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                        <div class="image-fallback" style="display:none;">
-                            <p><strong>LVP-562BLD 모델</strong></p>
-                            <p>이미지 링크: velog.velcdn.com/.../568643f6-f27c-4fb8-ac54-4a87ea0bbf21/image.png</p>
-                        </div>
-                        <div class="image-caption">LVP-562BLD 모델</div>
-                    </div>
-                    <div class="image-item">
-                        <img src="https://velog.velcdn.com/images/hwouu/post/9c789f02-9bc4-491f-a1f4-16d69ad551b7/image.png" 
-                             alt="롯데기공 Kiosk 멀티" 
-                             loading="lazy"
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                        <div class="image-fallback" style="display:none;">
-                            <p><strong>Kiosk 멀티 자동판매기</strong></p>
-                            <p>이미지 링크: velog.velcdn.com/.../9c789f02-9bc4-491f-a1f4-16d69ad551b7/image.png</p>
-                        </div>
-                        <div class="image-caption">Kiosk 멀티 자동판매기</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 가우비즈 -->
-            <div class="company-gallery">
-                <div class="company-title">가우비즈 - SaleMate 소프트웨어 솔루션</div>
-                <div class="image-grid">
-                    <div class="image-item">
-                        <img src="https://velog.velcdn.com/images/hwouu/post/7073296d-7c24-4b45-9170-da8bb5f1eab0/image.png" 
-                             alt="가우비즈 시스템 아키텍처" 
-                             loading="lazy"
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                        <div class="image-fallback" style="display:none;">
-                            <p><strong>시스템 아키텍처</strong></p>
-                            <p>이미지 링크: velog.velcdn.com/.../7073296d-7c24-4b45-9170-da8bb5f1eab0/image.png</p>
-                        </div>
-                        <div class="image-caption">시스템 아키텍처</div>
-                    </div>
-                    <div class="image-item">
-                        <img src="https://velog.velcdn.com/images/hwouu/post/2c3ccdb6-8cb9-42fc-96c2-68f61b9a4af8/image.png" 
-                             alt="가우비즈 SaleMate 화면" 
-                             loading="lazy"
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                        <div class="image-fallback" style="display:none;">
-                            <p><strong>SaleMate 관리 화면</strong></p>
-                            <p>이미지 링크: velog.velcdn.com/.../2c3ccdb6-8cb9-42fc-96c2-68f61b9a4af8/image.png</p>
-                        </div>
-                        <div class="image-caption">SaleMate 관리 화면</div>
-                    </div>
-                    <div class="image-item">
-                        <img src="https://velog.velcdn.com/images/hwouu/post/5ea837bb-260e-47d0-8b01-f228b14ea741/image.png" 
-                             alt="가우비즈 추가 기능" 
-                             loading="lazy"
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                        <div class="image-fallback" style="display:none;">
-                            <p><strong>추가 기능 및 연동</strong></p>
-                            <p>이미지 링크: velog.velcdn.com/.../5ea837bb-260e-47d0-8b01-f228b14ea741/image.png</p>
-                        </div>
-                        <div class="image-caption">추가 기능 및 연동</div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
 
-        <div class="competitive-advantage">
-            <h3>LAB TO MARKET 경쟁 우위 요소</h3>
-            <ul class="advantage-list">
-                <li><strong>혁신적인 냉장 시스템:</strong> 1~10°C 정밀 온도 제어로 신선식품 판매 가능</li>
-                <li><strong>완전 자동화 입출고:</strong> X-Y 로봇 시스템으로 앞면/뒤면 자동 입출고</li>
-                <li><strong>영양정보 표시:</strong> 칼로리, 비타민, 알레르기 정보 등 상세 영양성분 제공</li>
-                <li><strong>다이나믹 프라이싱:</strong> 시간, 신선도 기반 실시간 가격 조정</li>
-                <li><strong>특수 센서 기술:</strong> 방사능, CO2 센서로 식품 안전성 모니터링</li>
-                <li><strong>메뉴 라이프사이클 관리:</strong> 판매 데이터 기반 자동 메뉴 교체</li>
-                <li><strong>반품 시스템:</strong> 회원제 기반 제품 반품 기능</li>
-                <li><strong>원격 모니터링:</strong> 실시간 상태 모니터링 및 예측 정비</li>
-            </ul>
+        <!-- 롯데기공 -->
+        <div class="company-gallery">
+          <div class="company-title">
+            롯데기공 - LVP-562BLD / Kiosk 멀티 자동판매기
+          </div>
+          <div class="image-grid">
+            <div class="image-item">
+              <img
+                src="https://velog.velcdn.com/images/hwouu/post/568643f6-f27c-4fb8-ac54-4a87ea0bbf21/image.png"
+                alt="롯데기공 LVP-562BLD"
+                loading="lazy"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+              />
+              <div class="image-fallback" style="display: none">
+                <p><strong>LVP-562BLD 모델</strong></p>
+                <p>
+                  이미지 링크:
+                  velog.velcdn.com/.../568643f6-f27c-4fb8-ac54-4a87ea0bbf21/image.png
+                </p>
+              </div>
+              <div class="image-caption">LVP-562BLD 모델</div>
+            </div>
+            <div class="image-item">
+              <img
+                src="https://velog.velcdn.com/images/hwouu/post/9c789f02-9bc4-491f-a1f4-16d69ad551b7/image.png"
+                alt="롯데기공 Kiosk 멀티"
+                loading="lazy"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+              />
+              <div class="image-fallback" style="display: none">
+                <p><strong>Kiosk 멀티 자동판매기</strong></p>
+                <p>
+                  이미지 링크:
+                  velog.velcdn.com/.../9c789f02-9bc4-491f-a1f4-16d69ad551b7/image.png
+                </p>
+              </div>
+              <div class="image-caption">Kiosk 멀티 자동판매기</div>
+            </div>
+          </div>
         </div>
 
-        <div class="summary-section">
-            <h3>시장 포지셔닝 분석</h3>
-            <p><strong>타겟 시장:</strong> 기존 업체들이 커버하지 못하는 신선식품 자판기 시장을 선점</p>
-            <br/>
-            <p><strong>핵심 전략:</strong></p>
-            <ul style="margin-left: 20px; margin-top: 10px; color: #374151;">
-                <li>샐러드, 샌드위치 등 신선식품에 특화된 냉장 자판기</li>
-                <li>공공건물, 대학, 공항 등 건강식품 수요가 높은 곳 우선 타겟</li>
-                <li>하드웨어 + 소프트웨어 통합 솔루션으로 차별화</li>
-                <li>두바이, 일본 등 해외 시장 진출을 위한 기술적 우위 확보</li>
-            </ul>
+        <!-- 가우비즈 -->
+        <div class="company-gallery">
+          <div class="company-title">가우비즈 - SaleMate 소프트웨어 솔루션</div>
+          <div class="image-grid">
+            <div class="image-item">
+              <img
+                src="https://velog.velcdn.com/images/hwouu/post/7073296d-7c24-4b45-9170-da8bb5f1eab0/image.png"
+                alt="가우비즈 시스템 아키텍처"
+                loading="lazy"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+              />
+              <div class="image-fallback" style="display: none">
+                <p><strong>시스템 아키텍처</strong></p>
+                <p>
+                  이미지 링크:
+                  velog.velcdn.com/.../7073296d-7c24-4b45-9170-da8bb5f1eab0/image.png
+                </p>
+              </div>
+              <div class="image-caption">시스템 아키텍처</div>
+            </div>
+            <div class="image-item">
+              <img
+                src="https://velog.velcdn.com/images/hwouu/post/2c3ccdb6-8cb9-42fc-96c2-68f61b9a4af8/image.png"
+                alt="가우비즈 SaleMate 화면"
+                loading="lazy"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+              />
+              <div class="image-fallback" style="display: none">
+                <p><strong>SaleMate 관리 화면</strong></p>
+                <p>
+                  이미지 링크:
+                  velog.velcdn.com/.../2c3ccdb6-8cb9-42fc-96c2-68f61b9a4af8/image.png
+                </p>
+              </div>
+              <div class="image-caption">SaleMate 관리 화면</div>
+            </div>
+            <div class="image-item">
+              <img
+                src="https://velog.velcdn.com/images/hwouu/post/5ea837bb-260e-47d0-8b01-f228b14ea741/image.png"
+                alt="가우비즈 추가 기능"
+                loading="lazy"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+              />
+              <div class="image-fallback" style="display: none">
+                <p><strong>추가 기능 및 연동</strong></p>
+                <p>
+                  이미지 링크:
+                  velog.velcdn.com/.../5ea837bb-260e-47d0-8b01-f228b14ea741/image.png
+                </p>
+              </div>
+              <div class="image-caption">추가 기능 및 연동</div>
+            </div>
+          </div>
         </div>
+      </div>
+
+      <div class="competitive-advantage">
+        <h3>LAB TO MARKET 경쟁 우위 요소</h3>
+        <ul class="advantage-list">
+          <li>
+            <strong>혁신적인 냉장 시스템:</strong> 1~10°C 정밀 온도 제어로
+            신선식품 판매 가능
+          </li>
+          <li>
+            <strong>완전 자동화 입출고:</strong> X-Y 로봇 시스템으로 앞면/뒤면
+            자동 입출고
+          </li>
+          <li>
+            <strong>영양정보 표시:</strong> 칼로리, 비타민, 알레르기 정보 등
+            상세 영양성분 제공
+          </li>
+          <li>
+            <strong>다이나믹 프라이싱:</strong> 시간, 신선도 기반 실시간 가격
+            조정
+          </li>
+          <li>
+            <strong>특수 센서 기술:</strong> 방사능, CO2 센서로 식품 안전성
+            모니터링
+          </li>
+          <li>
+            <strong>메뉴 라이프사이클 관리:</strong> 판매 데이터 기반 자동 메뉴
+            교체
+          </li>
+          <li><strong>반품 시스템:</strong> 회원제 기반 제품 반품 기능</li>
+          <li>
+            <strong>원격 모니터링:</strong> 실시간 상태 모니터링 및 예측 정비
+          </li>
+        </ul>
+      </div>
+
+      <div class="summary-section">
+        <h3>시장 포지셔닝 분석</h3>
+        <p>
+          <strong>타겟 시장:</strong> 기존 업체들이 커버하지 못하는 신선식품
+          자판기 시장을 선점
+        </p>
+        <br />
+        <p><strong>핵심 전략:</strong></p>
+        <ul style="margin-left: 20px; margin-top: 10px; color: #374151">
+          <li>샐러드, 샌드위치 등 신선식품에 특화된 냉장 자판기</li>
+          <li>공공건물, 대학, 공항 등 건강식품 수요가 높은 곳 우선 타겟</li>
+          <li>하드웨어 + 소프트웨어 통합 솔루션으로 차별화</li>
+          <li>두바이, 일본 등 해외 시장 진출을 위한 기술적 우위 확보</li>
+        </ul>
+      </div>
     </div>
 
     <!-- 이미지 모달 -->
     <div id="imageModal" class="modal">
-        <span class="close">&times;</span>
-        <img class="modal-content" id="modalImage">
-        <div id="caption" class="modal-caption"></div>
+      <span class="close">&times;</span>
+      <img class="modal-content" id="modalImage" />
+      <div id="caption" class="modal-caption"></div>
     </div>
 
     <script>
-        // 이미지 모달 기능
-        document.addEventListener('DOMContentLoaded', function() {
-            const modal = document.getElementById("imageModal");
-            const modalImg = document.getElementById("modalImage");
-            const captionText = document.getElementById("caption");
-            const span = document.getElementsByClassName("close")[0];
+      // 이미지 모달 기능
+      document.addEventListener("DOMContentLoaded", function () {
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("modalImage");
+        const captionText = document.getElementById("caption");
+        const span = document.getElementsByClassName("close")[0];
 
-            // 모달 열기 함수
-            function openModal(imgSrc, imgAlt) {
-                // 백그라운드 스크롤 방지
-                document.body.style.overflow = 'hidden';
-                
-                modal.classList.add('show');
-                modalImg.src = imgSrc;
-                modalImg.alt = imgAlt;
-                captionText.innerHTML = imgAlt;
-                
-                // 이미지 로드 후 애니메이션 적용
-                modalImg.onload = function() {
-                    setTimeout(() => {
-                        modalImg.classList.add('show');
-                    }, 10);
-                };
+        // 모달 열기 함수
+        function openModal(imgSrc, imgAlt) {
+          // 백그라운드 스크롤 방지
+          document.body.style.overflow = "hidden";
+
+          modal.classList.add("show");
+          modalImg.src = imgSrc;
+          modalImg.alt = imgAlt;
+          captionText.innerHTML = imgAlt;
+
+          // 이미지 로드 후 애니메이션 적용
+          modalImg.onload = function () {
+            setTimeout(() => {
+              modalImg.classList.add("show");
+            }, 10);
+          };
+        }
+
+        // 모달 닫기 함수
+        function closeModal() {
+          modalImg.classList.remove("show");
+          setTimeout(() => {
+            modal.classList.remove("show");
+            // 백그라운드 스크롤 복원
+            document.body.style.overflow = "";
+          }, 200);
+        }
+
+        // 모든 이미지에 클릭 이벤트 추가
+        const images = document.querySelectorAll(".image-item img");
+        images.forEach(function (img) {
+          img.addEventListener("click", function () {
+            // 이미지가 로드되지 않은 경우 (fallback 상태) 모달을 열지 않음
+            if (this.style.display === "none") {
+              return;
             }
 
-            // 모달 닫기 함수
-            function closeModal() {
-                modalImg.classList.remove('show');
-                setTimeout(() => {
-                    modal.classList.remove('show');
-                    // 백그라운드 스크롤 복원
-                    document.body.style.overflow = '';
-                }, 200);
-            }
-
-            // 모든 이미지에 클릭 이벤트 추가
-            const images = document.querySelectorAll('.image-item img');
-            images.forEach(function(img) {
-                img.addEventListener('click', function() {
-                    // 이미지가 로드되지 않은 경우 (fallback 상태) 모달을 열지 않음
-                    if (this.style.display === 'none') {
-                        return;
-                    }
-                    
-                    openModal(this.src, this.alt);
-                });
-            });
-
-            // X 버튼 클릭으로 모달 닫기
-            span.addEventListener('click', closeModal);
-
-            // 모달 배경 클릭으로 닫기
-            modal.addEventListener('click', function(event) {
-                if (event.target === modal) {
-                    closeModal();
-                }
-            });
-
-            // ESC 키로 모달 닫기
-            document.addEventListener('keydown', function(event) {
-                if (event.key === 'Escape' && modal.classList.contains('show')) {
-                    closeModal();
-                }
-            });
+            openModal(this.src, this.alt);
+          });
         });
+
+        // X 버튼 클릭으로 모달 닫기
+        span.addEventListener("click", closeModal);
+
+        // 모달 배경 클릭으로 닫기
+        modal.addEventListener("click", function (event) {
+          if (event.target === modal) {
+            closeModal();
+          }
+        });
+
+        // ESC 키로 모달 닫기
+        document.addEventListener("keydown", function (event) {
+          if (event.key === "Escape" && modal.classList.contains("show")) {
+            closeModal();
+          }
+        });
+      });
     </script>
-</body>
+  </body>
 </html>
