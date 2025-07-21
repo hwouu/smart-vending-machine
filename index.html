@@ -255,6 +255,12 @@
             border-radius: 4px;
             border: 1px solid #e5e5e5;
             background: #f8f9fa;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .image-item img:hover {
+            transform: scale(1.05);
         }
 
         .image-item img[src=""] {
@@ -328,6 +334,66 @@
             }
         }
 
+        /* 이미지 모달 스타일 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            padding-top: 50px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            border-radius: 8px;
+        }
+
+        .modal-content {
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+
+        @keyframes zoom {
+            from {transform:scale(0)} 
+            to {transform:scale(1)}
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+        }
+
+        .modal-caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+            height: 150px;
+        }
+
         /* Print styles */
         @media print {
             body {
@@ -352,6 +418,10 @@
             .category-header {
                 background: #f1f5f9 !important;
                 -webkit-print-color-adjust: exact;
+            }
+
+            .modal {
+                display: none !important;
             }
         }
     </style>
@@ -751,5 +821,57 @@
             </ul>
         </div>
     </div>
+
+    <!-- 이미지 모달 -->
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="caption" class="modal-caption"></div>
+    </div>
+
+    <script>
+        // 이미지 모달 기능
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById("imageModal");
+            const modalImg = document.getElementById("modalImage");
+            const captionText = document.getElementById("caption");
+            const span = document.getElementsByClassName("close")[0];
+
+            // 모든 이미지에 클릭 이벤트 추가
+            const images = document.querySelectorAll('.image-item img');
+            images.forEach(function(img) {
+                img.addEventListener('click', function() {
+                    // 이미지가 로드되지 않은 경우 (fallback 상태) 모달을 열지 않음
+                    if (this.style.display === 'none') {
+                        return;
+                    }
+                    
+                    modal.style.display = "block";
+                    modalImg.src = this.src;
+                    modalImg.alt = this.alt;
+                    captionText.innerHTML = this.alt;
+                });
+            });
+
+            // X 버튼 클릭으로 모달 닫기
+            span.addEventListener('click', function() {
+                modal.style.display = "none";
+            });
+
+            // 모달 배경 클릭으로 닫기
+            modal.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            });
+
+            // ESC 키로 모달 닫기
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape' && modal.style.display === "block") {
+                    modal.style.display = "none";
+                }
+            });
+        });
+    </script>
 </body>
 </html>
